@@ -1,0 +1,2 @@
+# odoo14_docker_guohui
+guohui使用的odoo14重做镜像资料
