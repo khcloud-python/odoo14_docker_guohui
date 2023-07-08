@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+  web:
+    #image: odoo:14.0
+    image: wdmsyf/odoo14:20230708
+    container_name: odoo14_ee
+    restart: always
+    depends_on:
+      - mydb
+    ports:
+      - "10002:8069"
+    environment:
+      - HOST=mydb
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - ./data/odoo/enterprise-14.0:/mnt/enterprise-addons
+      - ./data/odoo/myaddons:/mnt/extra-addons
+      - ./data/odoo/conf:/etc/odoo
+      - ./data/odoo/data:/var/lib/odoo
+
+  mydb:
+    #image: postgres:15
+    image: postgres:10
+    container_name: odoo14_db
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
